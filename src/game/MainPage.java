@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-// import game.SoloMode;
-// import game.VSMode;
+import game.SoloMode;
+import game.VSMode;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 public class MainPage {
 
 	private JFrame frmJogoDaMemoria;
+
 
 	/**
 	 * Launch the application.
@@ -73,7 +74,7 @@ public class MainPage {
 		panel.add(btnSoloMode);
 		btnSoloMode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// game.SoloMode.play();
+				SoloMode.play();
 			}
 		});
 		
@@ -84,7 +85,7 @@ public class MainPage {
 		panel.add(btnVSMode);
 		btnVSMode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// game.VSMode.play();
+				VSMode.play();
 			}
 		});
 		

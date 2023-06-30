@@ -5,14 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SoloMode {
-	private static int cardCounter = 0;
 	protected JFrame frmSoloMode;
+	protected Table table;
+	protected ScorePanel scorePanel;
+	
 
 	/**
 	 * Launch the application.
@@ -51,43 +50,21 @@ public class SoloMode {
 		frmSoloMode = new JFrame();
 		frmSoloMode.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmSoloMode.setResizable(false);
-		frmSoloMode.setBounds(100, 100, 683, 611);
+		frmSoloMode.setBounds(100, 100, 686, 611);
 		frmSoloMode.getContentPane().setLayout(null);
 		
+		scorePanel = new ScorePanel();
+		scorePanel.setBounds(500, 176, 160, 220);
+		frmSoloMode.getContentPane().add(scorePanel);
+		
 		// Table
-		Table table = new Table();
+		table = new Table(scorePanel);
+		table.setLocation(0, 0);
 		frmSoloMode.getContentPane().add(table);
 		
-		// Score
-		JPanel panel = new JPanel();
-		panel.setBounds(500, 0, 167, 572);
-		frmSoloMode.getContentPane().add(panel);
-		panel.setLayout(null);
 		
-		// Titles
-		JLabel lblNewLabel = new JLabel("Temporizador");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(29, 11, 108, 61);
-		panel.add(lblNewLabel);
 		
-		// 
-		for (int i = 0; i < Table.amountOfCards; i++) {
-			table.cards[i].addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					System.out.println((e.getSource()));
-					cardCounter++;
-					if (cardCounter == 2) {
-						System.out.println("reset");
-						cardCounter = 0;
-					}
-				}
-			});
-
-					
-				
-		}
+	
 		
 	}
-
 }

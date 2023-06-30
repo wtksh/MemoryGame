@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-// import game.Table;
+import game.Table;
 
 public class VSMode {
 
