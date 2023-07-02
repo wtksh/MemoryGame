@@ -53,6 +53,7 @@ public class SoloMode {
 		frmSoloMode.setBounds(100, 100, 686, 611);
 		frmSoloMode.getContentPane().setLayout(null);
 		
+		// ScorePanel
 		scorePanel = new ScorePanel();
 		scorePanel.setBounds(500, 176, 160, 220);
 		frmSoloMode.getContentPane().add(scorePanel);

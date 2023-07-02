@@ -9,10 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import game.Table;
+import java.awt.Font;
+import javax.swing.JSeparator;
 
 public class VSMode {
-
-	private JFrame frame;
+	protected JFrame frmVSMode;
+	protected Table table1, table2;
+	protected ScorePanel scorePanel1, scorePanel2;
 
 	/**
 	 * Launch the application.
@@ -29,7 +32,7 @@ public class VSMode {
 			public void run() {
 				try {
 					VSMode window = new VSMode();
-					window.frame.setVisible(true);
+					window.frmVSMode.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,36 +48,40 @@ public class VSMode {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frmVSMode.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 1166, 611);
-		frame.getContentPane().setLayout(null);
+		frmVSMode = new JFrame();
+		frmVSMode.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmVSMode.setResizable(false);
+		frmVSMode.setBounds(100, 100, 1433, 611);
+		frmVSMode.getContentPane().setLayout(null);
+		
+		// Score 1
+		scorePanel1 = new ScorePanel();
+		scorePanel1.setLocation(0, 176);
+		frmVSMode.getContentPane().add(scorePanel1);
 		
 		// Table 1
-		Table table1 = new Table();;
-		frame.getContentPane().add(table1);
-		// table1.setEnabled(false);
+		table1 = new Table(scorePanel1);
+		table1.setBounds(170, 0, 490, 572);
+		frmVSMode.getContentPane().add(table1);
 		
-		// Score
-		JPanel panel = new JPanel();
-		panel.setBounds(500, 0, 150, 572);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Temporizador");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(21, 255, 108, 61);
-		panel.add(lblNewLabel);
+		// Score 2
+		scorePanel2 = new ScorePanel();
+		scorePanel2.setLocation(1256, 176);
+		frmVSMode.getContentPane().add(scorePanel2);
 		
 		// Table 2
-		Table table2 = new Table(660, 0);
-		frame.getContentPane().add(table2);
-			
-	
+		table2 = new Table(660, 0, scorePanel2);
+		table2.setLocation(756, 0);;
+		frmVSMode.getContentPane().add(table2);
 		
+		// VS
+		JLabel labelVS = new JLabel("VS");
+		labelVS.setBounds(670, 260, 76, 51);
+		frmVSMode.getContentPane().add(labelVS);
+		labelVS.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		labelVS.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 }

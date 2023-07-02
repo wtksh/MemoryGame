@@ -6,6 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class teste {
 
@@ -46,7 +56,24 @@ public class teste {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				teste();
+			}
+		});
+
+				
 		panel.add(btnNewButton);
+	}
+	
+	public void teste() {
+		System.out.println("Pressed");
+		try {
+			  Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+			  Thread.currentThread().interrupt();
+			}
 	}
 
 }
