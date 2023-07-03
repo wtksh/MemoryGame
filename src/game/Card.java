@@ -23,7 +23,8 @@ public class Card extends JToggleButton {
 	private void setCardIcon() {
 		setIcon(new ImageIcon(Table.class.getResource("/img/0.png")));
 		setPressedIcon(new ImageIcon(Table.class.getResource("/img/0.png")));
-		setDisabledIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
+		// setDisabledIcon(new ImageIcon(Table.class.getResource("/img/0.png")));
+		// setDisabledIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
 		setSelectedIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
 		setDisabledSelectedIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
 	}
@@ -36,6 +37,17 @@ public class Card extends JToggleButton {
 		setSelected(false);
 		setEnabled(true);
 		// setCardIcon();
+	}
+	
+	public void setCardClickedStatus(boolean clicked) {
+		if (clicked == true) {
+			setIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
+			setPressedIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
+		}
+		else {
+			setIcon(new ImageIcon(Table.class.getResource("/img/0.png")));
+			setPressedIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
+		}
 	}
 	
 }
