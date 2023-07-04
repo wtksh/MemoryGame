@@ -3,9 +3,6 @@ package game;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
 
 public class SoloMode {
 	protected JFrame frmSoloMode;

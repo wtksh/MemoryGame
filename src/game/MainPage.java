@@ -8,9 +8,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import game.SoloMode;
-import game.VSMode;
-
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;

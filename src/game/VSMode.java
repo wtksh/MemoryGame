@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import game.Table;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -98,21 +97,37 @@ public class VSMode {
 			public void actionPerformed(ActionEvent e) {
 				startButton.setVisible(false);
 				table1.setEnabled(true);
-				table2.setEnabled(true);
 			}
 		});
 	}
 	
-	protected static void compareTables(Table table1, Table table2) {
-		if (table1.playCounter == 3) {
+	protected static void compareTables(Table table1, Table table2) {	
+		if (table1.playCounter == 1) {
+			table2.setSelected(false);
+		}
+		else if (table2.playCounter == 1) {
+			table1.setSelected(false);
+		}
+
+		else if (table1.playCounter == 3) {
 			table1.playCounter = 0;
 			table1.setEnabled(false);
 			table2.setEnabled(true);
+			table2.firstClick = true;
+			table2.secondClick = true;
+			table2.selectedCards[0] = null;
+			table2.selectedCards[1] = null;
+			table2.selectedCardsCounter = 0;
 		}
 		else if (table2.playCounter == 3) {
 			table2.playCounter = 0;
 			table2.setEnabled(false);
 			table1.setEnabled(true);
+			table1.firstClick = true;
+			table1.secondClick = true;
+			table1.selectedCards[0] = null;
+			table1.selectedCards[1] = null;
+			table1.selectedCardsCounter = 0;
 		}
 	}
 }

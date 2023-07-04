@@ -2,14 +2,10 @@ package game;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Table extends JPanel implements Score {
 	protected static final int amountOfCards = 30;
@@ -24,6 +20,8 @@ public class Table extends JPanel implements Score {
 	protected int playCounter = 0;
 	protected boolean enableVSMode;
 	protected VSMode vsmode;
+	
+	protected boolean firstClick = true, secondClick = true;
 	
 	/**
 	 * Create the panel.
@@ -58,34 +56,53 @@ public class Table extends JPanel implements Score {
 			
 			cards[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					selectedCards[selectedCardsCounter] = (Card) e.getSource(); // Get card
-					selectedCards[selectedCardsCounter++].setEnabled(false); // Set selected card disabled
-					System.out.println(e.getSource()); // Test
+					// Reset preview action
+					if (!firstClick) {
+						if (!secondClick) {
+							if (selectedCardsCounter == 2) {
+								if (!selectedCards[0].isPair(selectedCards[1])) {
+									selectedCards[0].reset();
+									selectedCards[1].reset();
+								}
+								selectedCardsCounter = 0;
+							}
+						}
+						else {
+							secondClick = false;
+						}
+					}
+					else {
+						firstClick = false;
+					}
 					
+					// Get selected card
+					selectedCards[selectedCardsCounter] = (Card) e.getSource();
+					selectedCards[selectedCardsCounter++].setEnabled(false);
 					
+					// Pair check
 					if (selectedCardsCounter == 2) {
 						if (selectedCards[0].isPair(selectedCards[1])) {
 							selectedCards[0].setEnabled(false);
+							selectedCards[0].setLocked(true);
 							selectedCards[1].setEnabled(false);
-							//selectedCards[0].setSelected(true);
-							//selectedCards[1].setSelected(true);
+							selectedCards[1].setLocked(true);
 						}
 						else {
-							selectedCards[0].reset();
-							selectedCards[1].reset();
 							addMistakes();
 						}
 						addAttempts();
 						updateScore();
 						
-						selectedCardsCounter = 0;	
 						
+						// VS Mode enabled
 						if (enableVSMode) {
 							playCounter++;
 							VSMode.compareTables(vsmode.table1, vsmode.table2);
 						}
 						
+						// Game end check
 						if (attempts - mistakes == amountOfCards / 2) {
+							// VS Mode
 							if (enableVSMode) {
 								JOptionPane.showMessageDialog(null, "Game ended!\nPlayer1 Score: " + vsmode.table1.calculateScore() + "\nPlayer2 Score: " + vsmode.table2.calculateScore());
 								vsmode.table1.setEnabled(false);
@@ -93,6 +110,7 @@ public class Table extends JPanel implements Score {
 								vsmode.table2.setEnabled(false);
 								vsmode.table2.setSelected(true);
 							}
+							// Solo Mode
 							else {
 								JOptionPane.showMessageDialog(null, "Game ended!\nPlayer Score: " + calculateScore());
 								setEnabled(false);
@@ -173,26 +191,30 @@ public class Table extends JPanel implements Score {
 	}
 
 	/**
-	 * Set table to enabled.
+	 * Set all table cards to enabled, except locked cards.
 	 */
 	public void setEnabled(boolean enabled) {
 		for (int i = 0; i < amountOfCards; i++) {
-			cards[i].setEnabled(enabled);
+			if (!cards[i].isLocked()) {
+				cards[i].setEnabled(enabled);
+			}
 		}
 	}
 
 	/**
-	 * Set all table card to selected.
+	 * Set all table card to selected, except locked cards.
 	 */
-	public void setSelected(boolean enabled) {
+	public void setSelected(boolean selected) {
 		for (int i = 0; i < amountOfCards; i++) {
-			cards[i].setSelected(enabled);
+			if (!cards[i].isLocked()) {
+				cards[i].setSelected(selected);
+			}
 		}
 	}
 	
 	@Override
 	public int calculateScore() {
-		int score = 20 * (attempts - mistakes) - 5 * mistakes;
+		int score = 50 * (attempts - mistakes) - 10 * mistakes;
 		return Math.max(score, 0);
 	}
 

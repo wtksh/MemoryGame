@@ -1,19 +1,21 @@
 package game;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Card extends JToggleButton {
 	protected int iconCode;
+	protected boolean locked = false;
 
-	public Card(int iconCode) {
+	public Card(int iconCode, boolean locked) {
 		super("", false);
 		this.iconCode = iconCode;
+		this.locked = locked;
 		setCardIcon();
+	}
+	
+	public Card(int iconCode) {
+		this(iconCode, false);
 	}
 	
 	public Card() {
@@ -33,21 +35,18 @@ public class Card extends JToggleButton {
 		return this.iconCode == card.iconCode;
 	}
 	
+	public void setLocked(boolean lock) {
+		locked = lock;
+	}
+	
+	public boolean isLocked() {
+		return locked;
+	}
+	
 	public void reset() {
 		setSelected(false);
 		setEnabled(true);
 		// setCardIcon();
-	}
-	
-	public void setCardClickedStatus(boolean clicked) {
-		if (clicked == true) {
-			setIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
-			setPressedIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
-		}
-		else {
-			setIcon(new ImageIcon(Table.class.getResource("/img/0.png")));
-			setPressedIcon(new ImageIcon(Table.class.getResource("/img/" + iconCode + ".png")));
-		}
 	}
 	
 }
