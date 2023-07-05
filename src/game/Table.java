@@ -16,6 +16,9 @@ public class Table extends JPanel implements Score {
 	protected int attempts = 0;
 	protected int mistakes = 0;
 	protected ScorePanel scorePanel;
+
+	protected int positiveScore = 0;
+	protected int negativeScore = 0;
 	
 	protected int playCounter = 0;
 	protected boolean enableVSMode;
@@ -86,9 +89,11 @@ public class Table extends JPanel implements Score {
 							selectedCards[0].setLocked(true);
 							selectedCards[1].setEnabled(false);
 							selectedCards[1].setLocked(true);
+							positiveScore += 50;
 						}
 						else {
 							addMistakes();
+							negativeScore += 5;
 						}
 						addAttempts();
 						updateScore();
@@ -214,7 +219,7 @@ public class Table extends JPanel implements Score {
 	
 	@Override
 	public int calculateScore() {
-		int score = 50 * (attempts - mistakes) - 10 * mistakes;
+		int score = positiveScore - negativeScore;
 		return Math.max(score, 0);
 	}
 
